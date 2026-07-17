@@ -42,6 +42,12 @@
             ],
             "type": "media",
             "multiple": false
+        },
+        "reviews": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::review.review",
+            "inversedBy": "review_authors"
         }
     }
 }

@@ -1,0 +1,103 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reviews",
+  "info": {
+    "singularName": "review",
+    "pluralName": "reviews",
+    "displayName": "Review",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "reviewUrlSlug": {
+      "type": "string",
+      "required": true
+    },
+    "productName": {
+      "type": "string",
+      "required": true
+    },
+    "reviewDate": {
+      "type": "date",
+      "required": true
+    },
+    "previewSnippet": {
+      "type": "text"
+    },
+    "reviewBody": {
+      "type": "richtext",
+      "required": true
+    },
+    "verdict": {
+      "type": "text",
+      "required": true
+    },
+    "rating": {
+      "type": "decimal",
+      "required": true,
+      "min": 0,
+      "max": 5
+    },
+    "pros": {
+      "type": "json",
+      "required": true
+    },
+    "cons": {
+      "type": "json",
+      "required": true
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "priceLabel": {
+      "type": "string"
+    },
+    "buyUrl": {
+      "type": "string",
+      "required": true
+    },
+    "buyLabel": {
+      "type": "string"
+    },
+    "whereToBuy": {
+      "type": "string"
+    },
+    "listingCardImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    },
+    "ogImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    },
+    "seoDescription": {
+      "type": "text"
+    },
+    "seoKeywords": {
+      "type": "text"
+    },
+    "review_authors": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::blog-author.blog-author",
+      "mappedBy": "reviews"
+    },
+    "relatedProducts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "inversedBy": "reviews"
+    }
+  }
+}

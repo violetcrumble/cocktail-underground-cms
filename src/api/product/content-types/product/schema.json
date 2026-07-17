@@ -40,6 +40,12 @@
         },
         "AmazonPhotoURL": {
             "type": "string"
+        },
+        "reviews": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::review.review",
+            "mappedBy": "relatedProducts"
         }
     }
 }
