@@ -1,0 +1,108 @@
+{
+    "kind": "collectionType",
+    "collectionName": "recipes",
+    "info": {
+        "singularName": "recipe",
+        "pluralName": "recipes",
+        "displayName": "Recipe",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "recipebody": {
+            "type": "richtext"
+        },
+        "title": {
+            "type": "string"
+        },
+        "ingredients": {
+            "type": "richtext"
+        },
+        "PhotoMain": {
+            "type": "media",
+            "multiple": true,
+            "required": false,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "YouTubeLink": {
+            "type": "string"
+        },
+        "recipeUrlSlug": {
+            "type": "string",
+            "required": true
+        },
+        "youTubeID": {
+            "type": "string"
+        },
+        "isShortformVideo": {
+            "type": "boolean"
+        },
+        "keywords": {
+            "type": "text"
+        },
+        "RecipeIntro": {
+            "type": "richtext"
+        },
+        "cocktailIngredients": {
+            "type": "json",
+            "required": true
+        },
+        "relatedProducts": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::product.product"
+        },
+        "seoDescription": {
+            "type": "text"
+        },
+        "spirits": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::spirit.spirit",
+            "inversedBy": "recipes"
+        },
+        "videoThumbnail": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "PhotoPinterest": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "videoUploadDate": {
+            "type": "datetime"
+        },
+        "ratingCount": {
+            "type": "integer",
+            "default": 0,
+            "min": 0
+        },
+        "ratingTotal": {
+            "type": "integer",
+            "default": 0,
+            "min": 0
+        }
+    }
+}
