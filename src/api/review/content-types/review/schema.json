@@ -39,6 +39,9 @@
       "type": "text",
       "required": true
     },
+    "disclaimer": {
+      "type": "text"
+    },
     "rating": {
       "type": "decimal",
       "required": true,
