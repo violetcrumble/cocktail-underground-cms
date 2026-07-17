@@ -59,18 +59,9 @@
     "price": {
       "type": "decimal"
     },
-    "priceLabel": {
-      "type": "string"
-    },
     "buyUrl": {
       "type": "string",
       "required": true
-    },
-    "buyLabel": {
-      "type": "string"
-    },
-    "whereToBuy": {
-      "type": "string"
     },
     "listingCardImage": {
       "type": "media",
