@@ -441,6 +441,41 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAffiliatePartnerAffiliatePartner
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'affiliate_partners';
+  info: {
+    description: 'Brands shown in affiliate CTA boxes on blog posts and reviews';
+    displayName: 'Affiliate Partner';
+    pluralName: 'affiliate-partners';
+    singularName: 'affiliate-partner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    baseUrl: Schema.Attribute.String & Schema.Attribute.Required;
+    blurb: Schema.Attribute.Text & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta: Schema.Attribute.String & Schema.Attribute.Required;
+    displayOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::affiliate-partner.affiliate-partner'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    photoUrl: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiBlogAuthorBlogAuthor extends Struct.CollectionTypeSchema {
   collectionName: 'blog_authors';
   info: {
@@ -473,6 +508,7 @@ export interface ApiBlogAuthorBlogAuthor extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    reviews: Schema.Attribute.Relation<'manyToMany', 'api::review.review'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -566,6 +602,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     >;
     ProductName: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    reviews: Schema.Attribute.Relation<'manyToMany', 'api::review.review'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -640,6 +677,69 @@ export interface ApiRecipeRecipe extends Struct.CollectionTypeSchema {
     videoUploadDate: Schema.Attribute.DateTime;
     youTubeID: Schema.Attribute.String;
     YouTubeLink: Schema.Attribute.String;
+  };
+}
+
+export interface ApiReviewReview extends Struct.CollectionTypeSchema {
+  collectionName: 'reviews';
+  info: {
+    description: '';
+    displayName: 'Review';
+    pluralName: 'reviews';
+    singularName: 'review';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    buyUrl: Schema.Attribute.String & Schema.Attribute.Required;
+    cons: Schema.Attribute.JSON & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    disclaimer: Schema.Attribute.Text;
+    listingCardImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::review.review'
+    > &
+      Schema.Attribute.Private;
+    ogImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    previewSnippet: Schema.Attribute.Text;
+    price: Schema.Attribute.Decimal;
+    productName: Schema.Attribute.String & Schema.Attribute.Required;
+    pros: Schema.Attribute.JSON & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    rating: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 0;
+        },
+        number
+      >;
+    relatedProducts: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::product.product'
+    >;
+    review_authors: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::blog-author.blog-author'
+    >;
+    reviewBody: Schema.Attribute.RichText & Schema.Attribute.Required;
+    reviewDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    reviewUrlSlug: Schema.Attribute.String & Schema.Attribute.Required;
+    seoDescription: Schema.Attribute.Text;
+    seoKeywords: Schema.Attribute.Text;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    verdict: Schema.Attribute.Text & Schema.Attribute.Required;
   };
 }
 
@@ -1184,10 +1284,12 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::affiliate-partner.affiliate-partner': ApiAffiliatePartnerAffiliatePartner;
       'api::blog-author.blog-author': ApiBlogAuthorBlogAuthor;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
       'api::product.product': ApiProductProduct;
       'api::recipe.recipe': ApiRecipeRecipe;
+      'api::review.review': ApiReviewReview;
       'api::spirit.spirit': ApiSpiritSpirit;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
