@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "affiliate_partners",
+  "info": {
+    "singularName": "affiliate-partner",
+    "pluralName": "affiliate-partners",
+    "displayName": "Affiliate Partner",
+    "description": "Brands shown in affiliate CTA boxes on blog posts and reviews"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "blurb": {
+      "type": "text",
+      "required": true
+    },
+    "baseUrl": {
+      "type": "string",
+      "required": true
+    },
+    "cta": {
+      "type": "string",
+      "required": true
+    },
+    "photoUrl": {
+      "type": "string"
+    },
+    "displayOrder": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}
