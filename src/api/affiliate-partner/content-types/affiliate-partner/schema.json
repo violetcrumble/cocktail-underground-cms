@@ -34,6 +34,15 @@
     "displayOrder": {
       "type": "integer",
       "default": 0
+    },
+    "discountCode": {
+      "type": "string"
+    },
+    "discountDetails": {
+      "type": "string"
+    },
+    "reviewUrl": {
+      "type": "string"
     }
   }
 }
