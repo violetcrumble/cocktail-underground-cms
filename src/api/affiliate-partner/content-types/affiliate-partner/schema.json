@@ -43,6 +43,10 @@
     },
     "reviewUrl": {
       "type": "string"
+    },
+    "discountsPageOnly": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
