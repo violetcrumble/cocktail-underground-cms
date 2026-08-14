@@ -91,6 +91,14 @@
                 "audios"
             ]
         },
+        "PhotoOGSocial": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images"
+            ]
+        },
         "videoUploadDate": {
             "type": "datetime"
         },
