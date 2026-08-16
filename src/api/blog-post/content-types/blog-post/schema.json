@@ -21,6 +21,9 @@
         "Date": {
             "type": "date"
         },
+        "lastUpdated": {
+            "type": "date"
+        },
         "BlogPostBody": {
             "type": "richtext"
         },
