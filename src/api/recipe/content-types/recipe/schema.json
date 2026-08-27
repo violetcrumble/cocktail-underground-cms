@@ -69,6 +69,12 @@
             "target": "api::spirit.spirit",
             "inversedBy": "recipes"
         },
+        "occasions": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::occasion.occasion",
+            "inversedBy": "recipes"
+        },
         "videoThumbnail": {
             "type": "media",
             "multiple": false,

@@ -1,0 +1,25 @@
+{
+    "kind": "collectionType",
+    "collectionName": "occasions",
+    "info": {
+        "singularName": "occasion",
+        "pluralName": "occasions",
+        "displayName": "Occasion",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "occasion": {
+            "type": "string"
+        },
+        "recipes": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::recipe.recipe",
+            "mappedBy": "occasions"
+        }
+    }
+}
