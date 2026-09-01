@@ -460,6 +460,10 @@ export interface ApiAffiliatePartnerAffiliatePartner
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     cta: Schema.Attribute.String & Schema.Attribute.Required;
+    discountCode: Schema.Attribute.String;
+    discountDetails: Schema.Attribute.String;
+    discountsPageOnly: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     displayOrder: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -470,6 +474,7 @@ export interface ApiAffiliatePartnerAffiliatePartner
     name: Schema.Attribute.String & Schema.Attribute.Required;
     photoUrl: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    reviewUrl: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -538,6 +543,7 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Date: Schema.Attribute.Date;
+    lastUpdated: Schema.Attribute.Date;
     ListingCardImage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
@@ -557,6 +563,36 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     urlSlug: Schema.Attribute.String;
+  };
+}
+
+export interface ApiOccasionOccasion extends Struct.CollectionTypeSchema {
+  collectionName: 'occasions';
+  info: {
+    description: '';
+    displayName: 'Occasion';
+    pluralName: 'occasions';
+    singularName: 'occasion';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::occasion.occasion'
+    > &
+      Schema.Attribute.Private;
+    occasion: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    recipes: Schema.Attribute.Relation<'manyToMany', 'api::recipe.recipe'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -634,10 +670,16 @@ export interface ApiRecipeRecipe extends Struct.CollectionTypeSchema {
       'api::recipe.recipe'
     > &
       Schema.Attribute.Private;
+    occasions: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::occasion.occasion'
+    >;
     PhotoMain: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+    PhotoOGSocial: Schema.Attribute.Media<'images'>;
+    PhotoSchemaCrops: Schema.Attribute.Media<'images', true>;
     PhotoPinterest: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
@@ -698,6 +740,7 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     disclaimer: Schema.Attribute.Text;
+    lastUpdated: Schema.Attribute.Date;
     listingCardImage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
@@ -1287,6 +1330,7 @@ declare module '@strapi/strapi' {
       'api::affiliate-partner.affiliate-partner': ApiAffiliatePartnerAffiliatePartner;
       'api::blog-author.blog-author': ApiBlogAuthorBlogAuthor;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
+      'api::occasion.occasion': ApiOccasionOccasion;
       'api::product.product': ApiProductProduct;
       'api::recipe.recipe': ApiRecipeRecipe;
       'api::review.review': ApiReviewReview;

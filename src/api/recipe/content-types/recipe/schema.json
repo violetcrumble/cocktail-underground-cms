@@ -105,6 +105,14 @@
                 "images"
             ]
         },
+        "PhotoSchemaCrops": {
+            "type": "media",
+            "multiple": true,
+            "required": false,
+            "allowedTypes": [
+                "images"
+            ]
+        },
         "videoUploadDate": {
             "type": "datetime"
         },
