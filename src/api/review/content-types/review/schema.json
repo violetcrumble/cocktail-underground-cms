@@ -24,6 +24,11 @@
       "type": "string",
       "required": true
     },
+    "category": {
+      "type": "enumeration",
+      "enum": ["thc_drinks", "gear", "drinks"],
+      "default": "thc_drinks"
+    },
     "reviewDate": {
       "type": "date",
       "required": true
