@@ -67,6 +67,11 @@
             "type": "relation",
             "relation": "oneToMany",
             "target": "api::product.product"
+        },
+        "roundupPicks": {
+            "type": "component",
+            "repeatable": true,
+            "component": "roundup.pick"
         }
     }
 }

@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_roundup_picks",
+  "info": {
+    "displayName": "Pick",
+    "icon": "star",
+    "description": "One product in a roundup post. Place it in the body with [[pick 1]], [[pick 2]] and so on."
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "label": {
+      "type": "string"
+    },
+    "priceNote": {
+      "type": "string"
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "photoUrl": {
+      "type": "string"
+    },
+    "photoAlt": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    },
+    "review": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::review.review"
+    },
+    "writeUp": {
+      "type": "richtext"
+    }
+  }
+}

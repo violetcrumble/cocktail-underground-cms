@@ -555,6 +555,11 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     ogImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     publishedAt: Schema.Attribute.DateTime;
+    relatedProducts: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product.product'
+    >;
+    roundupPicks: Schema.Attribute.Component<'roundup.pick', true>;
     seoDescription: Schema.Attribute.Text;
     seoKeywords: Schema.Attribute.Text;
     TextPreviewSnippet: Schema.Attribute.Text;
@@ -679,10 +684,10 @@ export interface ApiRecipeRecipe extends Struct.CollectionTypeSchema {
       true
     >;
     PhotoOGSocial: Schema.Attribute.Media<'images'>;
-    PhotoSchemaCrops: Schema.Attribute.Media<'images', true>;
     PhotoPinterest: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
+    PhotoSchemaCrops: Schema.Attribute.Media<'images', true>;
     publishedAt: Schema.Attribute.DateTime;
     ratingCount: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
@@ -735,6 +740,8 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
   };
   attributes: {
     buyUrl: Schema.Attribute.String & Schema.Attribute.Required;
+    category: Schema.Attribute.Enumeration<['thc_drinks', 'gear', 'drinks']> &
+      Schema.Attribute.DefaultTo<'thc_drinks'>;
     cons: Schema.Attribute.JSON & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
