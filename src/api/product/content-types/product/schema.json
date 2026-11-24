@@ -41,6 +41,10 @@
         "AmazonPhotoURL": {
             "type": "string"
         },
+        "FeaturedOrder": {
+            "type": "integer",
+            "min": 1
+        },
         "reviews": {
             "type": "relation",
             "relation": "manyToMany",
