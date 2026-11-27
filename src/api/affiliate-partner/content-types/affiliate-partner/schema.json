@@ -16,6 +16,12 @@
       "type": "string",
       "required": true
     },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::partner-category.partner-category",
+      "inversedBy": "affiliate_partners"
+    },
     "blurb": {
       "type": "text",
       "required": true

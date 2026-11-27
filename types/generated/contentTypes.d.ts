@@ -456,6 +456,10 @@ export interface ApiAffiliatePartnerAffiliatePartner
   attributes: {
     baseUrl: Schema.Attribute.String & Schema.Attribute.Required;
     blurb: Schema.Attribute.Text & Schema.Attribute.Required;
+    category: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::partner-category.partner-category'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -595,6 +599,43 @@ export interface ApiOccasionOccasion extends Struct.CollectionTypeSchema {
     occasion: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     recipes: Schema.Attribute.Relation<'manyToMany', 'api::recipe.recipe'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPartnerCategoryPartnerCategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'partner_categories';
+  info: {
+    description: 'Groups affiliate partners (THC drinks, drinks, gear) so each page shows the right set';
+    displayName: 'Partner Category';
+    pluralName: 'partner-categories';
+    singularName: 'partner-category';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    affiliate_partners: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::affiliate-partner.affiliate-partner'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::partner-category.partner-category'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1345,6 +1386,7 @@ declare module '@strapi/strapi' {
       'api::blog-author.blog-author': ApiBlogAuthorBlogAuthor;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
       'api::occasion.occasion': ApiOccasionOccasion;
+      'api::partner-category.partner-category': ApiPartnerCategoryPartnerCategory;
       'api::product.product': ApiProductProduct;
       'api::recipe.recipe': ApiRecipeRecipe;
       'api::review.review': ApiReviewReview;
