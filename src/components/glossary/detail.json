@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_glossary_details",
+  "info": {
+    "displayName": "Detail",
+    "icon": "bulletList",
+    "description": "One labeled row under a glossary term, e.g. Good to know. The label is whatever fits the term."
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "text": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

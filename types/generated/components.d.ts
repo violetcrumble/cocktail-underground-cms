@@ -1,5 +1,18 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface GlossaryDetail extends Struct.ComponentSchema {
+  collectionName: 'components_glossary_details';
+  info: {
+    description: 'One labeled row under a glossary term, e.g. Good to know. The label is whatever fits the term.';
+    displayName: 'Detail';
+    icon: 'bulletList';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    text: Schema.Attribute.RichText & Schema.Attribute.Required;
+  };
+}
+
 export interface RoundupPick extends Struct.ComponentSchema {
   collectionName: 'components_roundup_picks';
   info: {
@@ -23,6 +36,7 @@ export interface RoundupPick extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
+      'glossary.detail': GlossaryDetail;
       'roundup.pick': RoundupPick;
     }
   }

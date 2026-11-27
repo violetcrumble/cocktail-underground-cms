@@ -575,6 +575,76 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiGlossaryTermGlossaryTerm
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'glossary_terms';
+  info: {
+    description: 'One term: a definition, plus any labeled rows it needs. Pick the glossary it belongs to.';
+    displayName: 'Glossary Term';
+    pluralName: 'glossary-terms';
+    singularName: 'glossary-term';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    anchor: Schema.Attribute.UID<'term'> & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    definition: Schema.Attribute.RichText & Schema.Attribute.Required;
+    details: Schema.Attribute.Component<'glossary.detail', true>;
+    glossary: Schema.Attribute.Relation<'manyToOne', 'api::glossary.glossary'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::glossary-term.glossary-term'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    term: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGlossaryGlossary extends Struct.CollectionTypeSchema {
+  collectionName: 'glossaries';
+  info: {
+    description: 'A named set of terms. A blog post shows one where its body says [[glossary its-handle]].';
+    displayName: 'Glossary';
+    pluralName: 'glossaries';
+    singularName: 'glossary';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    handle: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::glossary.glossary'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    terms: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::glossary-term.glossary-term'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiOccasionOccasion extends Struct.CollectionTypeSchema {
   collectionName: 'occasions';
   info: {
@@ -1385,6 +1455,8 @@ declare module '@strapi/strapi' {
       'api::affiliate-partner.affiliate-partner': ApiAffiliatePartnerAffiliatePartner;
       'api::blog-author.blog-author': ApiBlogAuthorBlogAuthor;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
+      'api::glossary-term.glossary-term': ApiGlossaryTermGlossaryTerm;
+      'api::glossary.glossary': ApiGlossaryGlossary;
       'api::occasion.occasion': ApiOccasionOccasion;
       'api::partner-category.partner-category': ApiPartnerCategoryPartnerCategory;
       'api::product.product': ApiProductProduct;

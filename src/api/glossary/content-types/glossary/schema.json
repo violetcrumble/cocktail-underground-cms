@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "glossaries",
+  "info": {
+    "singularName": "glossary",
+    "pluralName": "glossaries",
+    "displayName": "Glossary",
+    "description": "A named set of terms. A blog post shows one where its body says [[glossary its-handle]]."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "handle": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "terms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::glossary-term.glossary-term",
+      "mappedBy": "glossary"
+    }
+  }
+}
