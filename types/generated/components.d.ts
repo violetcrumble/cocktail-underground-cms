@@ -13,6 +13,19 @@ export interface GlossaryDetail extends Struct.ComponentSchema {
   };
 }
 
+export interface GlossarySource extends Struct.ComponentSchema {
+  collectionName: 'components_glossary_sources';
+  info: {
+    description: 'One source cited under a glossary term: the name shown on the page and the address it links to.';
+    displayName: 'Source';
+    icon: 'link';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface RoundupPick extends Struct.ComponentSchema {
   collectionName: 'components_roundup_picks';
   info: {
@@ -37,6 +50,7 @@ declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
       'glossary.detail': GlossaryDetail;
+      'glossary.source': GlossarySource;
       'roundup.pick': RoundupPick;
     }
   }

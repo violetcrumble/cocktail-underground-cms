@@ -13,3 +13,6 @@ npm-debug.log*
 .idea
 .vscode
 test
+public/uploads/preview-curious-elixirs.jpg
+public/uploads/preview-hiyo.jpg
+public/uploads/preview-sensori.jpg

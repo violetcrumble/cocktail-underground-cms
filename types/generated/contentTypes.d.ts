@@ -595,6 +595,7 @@ export interface ApiGlossaryTermGlossaryTerm
     definition: Schema.Attribute.RichText & Schema.Attribute.Required;
     details: Schema.Attribute.Component<'glossary.detail', true>;
     glossary: Schema.Attribute.Relation<'manyToOne', 'api::glossary.glossary'>;
+    lastReviewed: Schema.Attribute.Date;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -602,6 +603,7 @@ export interface ApiGlossaryTermGlossaryTerm
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    sources: Schema.Attribute.Component<'glossary.source', true>;
     term: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -612,7 +614,7 @@ export interface ApiGlossaryTermGlossaryTerm
 export interface ApiGlossaryGlossary extends Struct.CollectionTypeSchema {
   collectionName: 'glossaries';
   info: {
-    description: 'A named set of terms. A blog post shows one where its body says [[glossary its-handle]].';
+    description: 'A named set of terms. It gets its own page at /glossary/its-handle once it has a published term, and a blog post can show it where its body says [[glossary its-handle]].';
     displayName: 'Glossary';
     pluralName: 'glossaries';
     singularName: 'glossary';
@@ -621,10 +623,18 @@ export interface ApiGlossaryGlossary extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    author: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::blog-author.blog-author'
+    >;
+    closing: Schema.Attribute.RichText;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    datePublished: Schema.Attribute.Date;
     handle: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    intro: Schema.Attribute.RichText;
+    lastUpdated: Schema.Attribute.Date;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -635,10 +645,13 @@ export interface ApiGlossaryGlossary extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
+    seoDescription: Schema.Attribute.Text;
+    shareImage: Schema.Attribute.Media<'images'>;
     terms: Schema.Attribute.Relation<
       'oneToMany',
       'api::glossary-term.glossary-term'
     >;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

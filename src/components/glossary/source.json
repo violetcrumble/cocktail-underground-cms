@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_glossary_sources",
+  "info": {
+    "displayName": "Source",
+    "icon": "link",
+    "description": "One source cited under a glossary term: the name shown on the page and the address it links to."
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

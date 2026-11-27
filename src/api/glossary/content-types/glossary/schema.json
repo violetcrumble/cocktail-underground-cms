@@ -5,7 +5,7 @@
     "singularName": "glossary",
     "pluralName": "glossaries",
     "displayName": "Glossary",
-    "description": "A named set of terms. A blog post shows one where its body says [[glossary its-handle]]."
+    "description": "A named set of terms. It gets its own page at /glossary/its-handle once it has a published term, and a blog post can show it where its body says [[glossary its-handle]]."
   },
   "options": {
     "draftAndPublish": false
@@ -21,6 +21,37 @@
       "type": "uid",
       "targetField": "name",
       "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::blog-author.blog-author"
+    },
+    "datePublished": {
+      "type": "date"
+    },
+    "lastUpdated": {
+      "type": "date"
+    },
+    "intro": {
+      "type": "richtext"
+    },
+    "closing": {
+      "type": "richtext"
+    },
+    "seoDescription": {
+      "type": "text"
+    },
+    "shareImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "terms": {
       "type": "relation",
